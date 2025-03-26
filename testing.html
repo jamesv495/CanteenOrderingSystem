@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Ordering System</title>
+    <link rel="stylesheet"  type="text/css" href="food.css">
+</head>
+<body>
+    <h1>Food Ordering System</h1>
+
+    <div class="menu">
+        <div class="item" data-name="Burger" data-price="10" data-image="https://via.placeholder.com/150">
+            <img src="burger.jpg" alt="Burger">
+            <h3>Burger</h3>
+            <p>$10</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="item" data-name="Pizza" data-price="12" data-image="https://via.placeholder.com/150">
+            <img src="pizza.jpg" alt="Pizza">
+            <h3>Pizza</h3>
+            <p>$12</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+         <div class="item" data-name="Salad" data-price="8" data-image="https://via.placeholder.com/150">
+            <img src="salad.jpg" alt="Salad">
+            <h3>Salad</h3>
+            <p>$8</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+         <div class="item" data-name="Pasta" data-price="15" data-image="https://via.placeholder.com/150">
+            <img src="pasta.jpg" alt="Pasta">
+            <h3>Pasta</h3>
+            <p>$15</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+
+        <div class="item" data-name="Pasta" data-price="15" data-image="https://via.placeholder.com/150">
+            <img src="pasta.jpg" alt="Pasta">
+            <h3>Pasta</h3>
+            <p>$15</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="item" data-name="Pizza" data-price="12" data-image="https://via.placeholder.com/150">
+            <img src="pizza.jpg" alt="Pizza">
+            <h3>Pizza</h3>
+            <p>$12</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+    </div>
+    
+
+    </div>
+
+    <div class="cart">
+        <h2>Your Cart</h2>
+        <ul class="cart-items">
+        </ul>
+        <div class="total">
+            Total: $<span id="cart-total">0</span>
+        </div>
+        <button id="checkout">Checkout</button>
+    </div>
+
+    <script>
+        const cartItems = [];
+        const cartList = document.querySelector('.cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        const checkoutButton = document.getElementById('checkout');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', addToCart);
+        });
+
+        function addToCart(event) {
+            const item = event.target.parentElement;
+            const name = item.dataset.name;
+            const price = parseFloat(item.dataset.price);
+            const image = item.dataset.image;
+
+            cartItems.push({ name, price, image });
+            updateCart();
+        }
+
+        function updateCart() {
+            cartList.innerHTML = '';
+            let total = 0;
+
+            cartItems.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${item.name} - $${item.price}`;
+                cartList.appendChild(listItem);
+                total += item.price;
+            });
+
+            cartTotal.textContent = total.toFixed(2);
+        }
+
+        checkoutButton.addEventListener('click', () => {
+          if (cartItems.length === 0){
+            alert("Your cart is empty!");
+          } else{
+            alert("Checkout successful! Total: $" + cartTotal.textContent);
+            cartItems.length = 0;
+            updateCart();
+          }
+
+        });
+    </script>
+</body>
+</html>
